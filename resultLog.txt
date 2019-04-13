@@ -1,0 +1,10 @@
+Elements count: 1000 | Rank:   3 | Input type: Random (seed: 0) | Number of write operations : 3261 | Number of read operations : 9485 | Time: 3600042825 | Nodes created: 1208
+Elements count: 1000 | Rank:  10 | Input type: Random (seed: 0) | Number of write operations : 1316 | Number of read operations : 3163 | Time: 1903440235 | Nodes created: 182
+Elements count: 1000 | Rank:  20 | Input type: Random (seed: 0) | Number of write operations : 1077 | Number of read operations : 2283 | Time: 1760827354 | Nodes created: 49
+Elements count: 1000 | Rank:  50 | Input type: Random (seed: 0) | Number of write operations : 1030 | Number of read operations : 1900 | Time: 1469128506 | Nodes created: 19
+Elements count: 1000 | Rank: 100 | Input type: Random (seed: 0) | Number of write operations : 1014 | Number of read operations : 1800 | Time: 1739772152 | Nodes created: 9
+Elements count: 1000 | Rank: 100 | Input type: Random (seed: 0) | Number of write operations : 1014 | Number of read operations : 1800 | Time: 1488935313 | Nodes created: 9
+Elements count: 1000 | Rank: 100 | Input type: Random (seed: 0) | Number of write operations : 1014 | Number of read operations : 1800 | Time: 1460345892 | Nodes created: 9
+Elements count: 1000 | Rank: 100 | Input type: Random (seed: 0) | Number of write operations : 1014 | Number of read operations : 1800 | Time: 1522787744 | Nodes created: 9
+Elements count: 1000 | Rank: 100 | Input type: Random (seed: 0) | Number of write operations : 1014 | Number of read operations : 1800 | Time: 1573708020 | Nodes created: 9
+Elements count: 1000 | Rank: 100 | Input type: Random (seed: 0) | Number of write operations : 1014 | Number of read operations : 1800 | Time: 1422583932 | Nodes created: 9
