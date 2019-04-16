@@ -10,7 +10,7 @@ public class Testing
 	{
 		Scanner scanner = new Scanner(System.in);
 		
-		int rank = 2;
+		int rank = 5;
 		boolean random = false;
 		boolean randomSeed = false;
 		long seed = 0;
@@ -27,7 +27,7 @@ public class Testing
 		BTree.printlogs = false;
 		
 		
-//		long start = System.nanoTime();
+		long start = System.nanoTime();
 		for(int i=0; i<elementCount; i++)
 		{
 			if(random)
@@ -36,18 +36,18 @@ public class Testing
 				tree.insert(i);
 			//scanner.next();
 		}
-//		long stop = System.nanoTime();
+		long stop = System.nanoTime();
 		BTree.printlogs = true;
 		tree.delete(3);
 		//tree.delete(3);
 		
 		
-		//System.out.println("Time : " + (stop - start));
-		//System.out.println("Number of write operations: " + FileContent.getTotalWrites());
-		//System.out.println("Number of read operations: " + FileContent.getTotalReads());
+		System.out.println("Time : " + (stop - start));
+		System.out.println("Number of write operations: " + FileContent.getTotalWrites());
+		System.out.println("Number of read operations: " + FileContent.getTotalReads());
 		
 		
-		//log(rank, random, randomSeed, seed, elementCount, tree, start, stop);
+		log(rank, random, randomSeed, seed, elementCount, tree, start, stop);
 		
 //		for(int i = 100; i < 200; i++)
 //			tree.insert(i);
@@ -57,7 +57,6 @@ public class Testing
 //			else
 //				System.out.println(i + " not found");
 		
-		
 //		for(int i = 1; i > 1000; i--)
 //		{
 //			if (tree.delete(i))
@@ -65,16 +64,7 @@ public class Testing
 //			else
 //				System.out.println(i + " not found");
 //		}
-		
-		//tree = new BTree(5);
-		//tree.insert(1);
-		//tree.delete(1);
-		//tree.delete(1);
-		return;
-
-
-//		for(int i=0; i<13; i++)
-//			System.out.println("Contains " + i + " = " + tree.contains(i));
+	
 	}
 	
 	private static void log(int rank, boolean random, boolean randomSeed, long seed, int elementCount, BTree tree, long start, long stop) throws IOException
