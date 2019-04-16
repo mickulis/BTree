@@ -83,11 +83,11 @@ public class FileContent
 		File file = new File(filePath);
 		if(file.delete())
 		{
-			System.out.println("File deleted successfully");
+			//System.out.println("File deleted successfully");
 			totalDeletes++;
 		}
-		else
-			System.out.println("File not deleted");
+//		else
+//			System.out.println("File not deleted");
 		saved = false;
 	}
 	
