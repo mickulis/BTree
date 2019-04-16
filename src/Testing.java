@@ -10,7 +10,7 @@ public class Testing
 	{
 		Scanner scanner = new Scanner(System.in);
 		
-		int rank = 5;
+		int rank = 2;
 		boolean random = false;
 		boolean randomSeed = false;
 		long seed = 0;
@@ -37,8 +37,8 @@ public class Testing
 			//scanner.next();
 		}
 		long stop = System.nanoTime();
-		BTree.printlogs = true;
-		tree.delete(3);
+		
+		//tree.delete(2);
 		//tree.delete(3);
 		
 		

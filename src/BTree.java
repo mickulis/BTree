@@ -304,11 +304,32 @@ public class BTree
 		else	// if root has exactly 1 key, root merge might be necessary
 		{
 			if(printlogs) System.out.println("Root has children and only 1 key");
-			int index = findIndex(value, root);
+			
+			int index;
+			boolean deletingRootKey = false;
+			if(root.getKeys().get(0) == value)
+			{
+				if(printlogs) System.out.println("Value = root key: checking left node");
+				index = 0;
+				deletingRootKey = true;
+			}
+			else
+			{
+				index = findIndex(value, root);
+			}
+			
 			FileContent nextNode = new FileContent(root.getChildrenPaths().get(index));
 			if(nextNode.getKeys().size() > rank - 1)	// if next node is not at minimum capacity move to that node
 			{
 				if(printlogs) System.out.println("Next node not at min cap");
+				if(deletingRootKey)
+				{
+					if(printlogs) System.out.println("Deleting root key, looking for highest value in left subtree");
+					root.removeKey(value);
+					root.insertKey(removeHighest(nextNode));
+					root.write();
+					return true;
+				}
 				return delete(value, nextNode);
 			}
 			else
