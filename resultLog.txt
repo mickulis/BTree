@@ -8,3 +8,9 @@ Elements count: 1000 | Rank: 100 | Input type: Random (seed: 0) | Number of writ
 Elements count: 1000 | Rank: 100 | Input type: Random (seed: 0) | Number of write operations : 1014 | Number of read operations : 1800 | Time: 1522787744 | Nodes created: 9
 Elements count: 1000 | Rank: 100 | Input type: Random (seed: 0) | Number of write operations : 1014 | Number of read operations : 1800 | Time: 1573708020 | Nodes created: 9
 Elements count: 1000 | Rank: 100 | Input type: Random (seed: 0) | Number of write operations : 1014 | Number of read operations : 1800 | Time: 1422583932 | Nodes created: 9
+Elements count: 9 | Rank: 2 | Input type: Ascending sequence | Number of write operations : 18 | Number of read operations : 14 | Time: 97141931 | Nodes created: 7
+Elements count: 3 | Rank: 2 | Input type: Ascending sequence | Number of write operations : 3 | Number of read operations : 3 | Time: 11064867 | Nodes created: 1
+Elements count: 4 | Rank: 2 | Input type: Ascending sequence | Number of write operations : 6 | Number of read operations : 4 | Time: 49567507 | Nodes created: 3
+Elements count: 2 | Rank: 2 | Input type: Ascending sequence | Number of write operations : 2 | Number of read operations : 2 | Time: 13198196 | Nodes created: 1
+Elements count: 9 | Rank: 3 | Input type: Ascending sequence | Number of write operations : 13 | Number of read operations : 12 | Time: 68611025 | Nodes created: 4
+Elements count: 2 | Rank: 3 | Input type: Ascending sequence | Number of write operations : 2 | Number of read operations : 2 | Time: 13686887 | Nodes created: 1

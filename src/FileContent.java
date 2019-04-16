@@ -10,6 +10,7 @@ public class FileContent
 {
 	static private int totalReads = 0;
 	static private int totalWrites = 0;
+	static private int totalDeletes = 0;
 	
 	private ArrayList<Integer> keys;
 	private ArrayList<String> childrenPaths;
@@ -73,13 +74,20 @@ public class FileContent
 		{
 			childrenPaths.add(scanner.nextLine());
 		}
+		scanner.close();
 		totalReads++;
 	}
 	
 	private void delete(String filePath)
 	{
 		File file = new File(filePath);
-		file.delete();
+		if(file.delete())
+		{
+			System.out.println("File deleted successfully");
+			totalDeletes++;
+		}
+		else
+			System.out.println("File not deleted");
 		saved = false;
 	}
 	
@@ -153,6 +161,20 @@ public class FileContent
 	{
 		saved = false;
 		return keys.remove(index);
+	}
+	
+	
+	public static void main(String[] args) throws IOException
+	{
+		FileContent fileContent = new FileContent(new ArrayList<Integer>(), new ArrayList<String>(), "a");
+		
+		fileContent.insertKey(0);
+		fileContent.write();
+		fileContent.insertKey(1);
+		System.out.println(fileContent.keys.size());
+		fileContent.write();
+		
+		
 	}
 	
 }

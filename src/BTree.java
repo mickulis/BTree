@@ -52,6 +52,20 @@ public class BTree
 		new File(rootPath).createNewFile();
 	}
 	
+	public BTree(int rank, String directory) throws IOException
+	{
+		if(rank < 2)
+			this.rank = 2;
+		else
+			this.rank = rank;
+		this.directory = directory;
+		new File(directory).mkdir();
+		this.rootPath = directory + "/root.node";
+		new File(rootPath).createNewFile();
+	}
+	
+	
+	
 	public void insert(int value) throws IOException
 	{
 		
@@ -121,7 +135,11 @@ public class BTree
 			if(printlogs) System.out.println("value: " + value + " > " + parentContent.getKeys().get(iterator));
 			iterator++;
 		}
-		if(printlogs) System.out.println("index of first higher element: " + iterator + "\n");
+		if(printlogs)
+			if(iterator < parentContent.getKeys().size())
+				System.out.println("index of first higher element(" + parentContent.getKeys().get(iterator) + "): " + iterator + "\n");
+			else
+				System.out.println("no higher element exists(max " + parentContent.getKeys().get(iterator - 1) + ") returning last index+1: " + iterator + "\n");
 		return iterator;
 	}
 	
@@ -262,6 +280,7 @@ public class BTree
 		if(currentNode.getChildrenPaths().size() == 0)
 		{
 			int highestKey = currentNode.removeIndexKey(currentNode.getKeys().size() - 1);
+			if(printlogs) System.out.println("Next highest key found:" + highestKey);
 			currentNode.write();
 			return highestKey;
 		}
@@ -279,29 +298,35 @@ public class BTree
 		
 		if(root.getChildrenPaths().size() == 0 || root.getKeys().size() > 1)	// if root has 2 or more keys, or doesn't have children, it behaves as if it was any other node
 		{
+			if(printlogs) System.out.println("Root doesn't have children or is at size > 1");
 			return delete(value, root);
 		}
 		else	// if root has exactly 1 key, root merge might be necessary
 		{
+			if(printlogs) System.out.println("Root has children and only 1 key");
 			int index = findIndex(value, root);
 			FileContent nextNode = new FileContent(root.getChildrenPaths().get(index));
 			if(nextNode.getKeys().size() > rank - 1)	// if next node is not at minimum capacity move to that node
 			{
+				if(printlogs) System.out.println("Next node not at min cap");
 				return delete(value, nextNode);
 			}
 			else
 			{
+				if(printlogs) System.out.println("Next node at min cap");
 				if(index == 0)
 				{
 					FileContent rightBrother = new FileContent(root.getChildrenPaths().get(1));
 					
 					if(rightBrother.getKeys().size() > rank - 1)
 					{
-						//rotate
+						if(printlogs) System.out.println("Brother not at min cap: rotate");
+						rotateLeft(0, root, nextNode, rightBrother);
 						return delete(value, nextNode);
 					}
 					else
 					{
+						if(printlogs) System.out.println("Brother at min cap: merging");
 						root = rootMerge(root, nextNode, rightBrother);
 						return delete(value, root);
 					}
@@ -312,12 +337,14 @@ public class BTree
 					
 					if(leftBrother.getKeys().size() > rank - 1)
 					{
-						// rotate
+						if(printlogs) System.out.println("Brother not at min cap: rotate");
+						rotateRight(0, root, leftBrother, nextNode);
 						return delete(value, nextNode);
 						
 					}
 					else
 					{
+						if(printlogs) System.out.println("Brother at min cap: merging");
 						root = rootMerge(root, leftBrother, nextNode);
 						return delete(value, root);
 						
@@ -336,14 +363,17 @@ public class BTree
 		 */
 		if(currentNode.getChildrenPaths().size() == 0)
 		{
+			if(printlogs) System.out.println("Current node has no children");
 			if(currentNode.getKeys().size() > index && currentNode.getKeys().get(index) == value)
 			{
+				if(printlogs) System.out.println("Key found: deleting");
 				currentNode.removeKey(value);
 				currentNode.write();
 				return true;
 			}
 			else
 			{
+				if(printlogs) System.out.println("Key not found: no keys deleted");
 				currentNode.write();
 				return false;
 			}
@@ -357,6 +387,7 @@ public class BTree
 		
 		if(currentNode.getKeys().size() > index && currentNode.getKeys().get(index) == value)	// key to delete found in root
 		{
+			if(printlogs) System.out.println(currentNode.getFilePath() + ": found key: deleting key and looking for highest key lower than deleted");
 			currentNode.removeKey(value);
 			currentNode.insertKey(removeHighest(nextNode));
 			currentNode.write();
@@ -420,6 +451,8 @@ public class BTree
 	
 	private FileContent rootMerge(FileContent root, FileContent leftChild, FileContent rightChild) throws IOException
 	{
+		if(printlogs) System.out.println("Commencing root merge");
+		
 		leftChild.insertKey(root.getKeys().get(0));
 		for(int key: rightChild.getKeys())
 			leftChild.insertKey(key);
@@ -429,14 +462,19 @@ public class BTree
 		{
 			leftChild.getChildrenPaths().add(rightChild.getChildrenPaths().remove(0));
 		}
+		if(printlogs) System.out.println("Deleting file " + leftChild.getFilePath());
 		leftChild.delete();
+		if(printlogs) System.out.println("Deleting file " + rightChild.getFilePath());
 		rightChild.delete();
 		leftChild.setFilePath(rootPath);
+		if(printlogs) System.out.println("Root merge completed");
 		return leftChild;
 	}
 	
 	private FileContent merge(int index, FileContent parentNode, FileContent leftChild, FileContent rightChild) throws IOException
 	{
+		if(printlogs) System.out.println("Commencing merge");
+		
 		leftChild.insertKey(parentNode.removeIndexKey(index));
 		parentNode.getChildrenPaths().remove(index + 1);
 		for(int key: rightChild.getKeys())
@@ -447,9 +485,10 @@ public class BTree
 		{
 			leftChild.getChildrenPaths().add(rightChild.getChildrenPaths().remove(0));
 		}
-		
+		if(printlogs) System.out.println("Deleting file " + rightChild.getFilePath());
 		rightChild.delete();
 		parentNode.write();
+		if(printlogs) System.out.println("Merge completed");
 		return leftChild;
 	}
 	
